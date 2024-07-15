@@ -17,7 +17,6 @@ $(PKG)_PATCH_PRE_CMDS += cp $(FREETZ_BASE_DIR)/make/pkgs/usbip-linux/libudev.h s
 $(PKG)_PATCH_PRE_CMDS += cp $(FREETZ_BASE_DIR)/make/pkgs/usbip-linux/libudev.h libsrc/;
 
 # TODO: only available *after* first image creation:
-$(PKG)_CONFIGURE_PRE_CMDS += ln -sT libudev.so.1 $(FREETZ_BASE_DIR)/build/original/filesystem/lib/libudev.so;
 $(PKG)_CONFIGURE_PRE_CMDS += ./autogen.sh;
 $(PKG)_CONFIGURE_PRE_CMDS += $(call PKG_PREVENT_RPATH_HARDCODING,./configure)
 

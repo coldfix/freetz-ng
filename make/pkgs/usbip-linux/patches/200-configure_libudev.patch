@@ -9,8 +9,8 @@
 -			      [LIBS="$LIBS -ludev"],
 -			      [AC_MSG_ERROR([Missing udev library!])])],
 -		[AC_MSG_ERROR([Missing /usr/include/libudev.h])])
-+AC_CHECK_LIB([udev], [udev_new],
-+             [LIBS="$LIBS -ludev"],
++AC_CHECK_LIB([:libudev.so.1], [udev_new],
++             [LIBS="$LIBS -l:libudev.so.1"],
 +             [AC_MSG_ERROR([Missing udev library!])])
  
  # Checks for libwrap library.
