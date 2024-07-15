@@ -1,0 +1,62 @@
+--- a/libsrc/usbip_common.c
++++ b/libsrc/usbip_common.c
+@@ -13,8 +13,6 @@ int usbip_use_syslog;
+ int usbip_use_stderr;
+ int usbip_use_debug;
+ 
+-extern struct udev *udev_context;
+-
+ struct speed_string {
+ 	int num;
+ 	char *speed;
+@@ -214,7 +212,7 @@ int read_usb_device(struct udev_device *sdev, struct usbip_usb_device *udev)
+ }
+ 
+ int read_usb_interface(struct usbip_usb_device *udev, int i,
+-		       struct usbip_usb_interface *uinf)
++		       struct usbip_usb_interface *uinf, struct udev *udev_context)
+ {
+ 	char busid[SYSFS_BUS_ID_SIZE];
+ 	int size;
+--- a/libsrc/usbip_common.h
++++ b/libsrc/usbip_common.h
+@@ -122,7 +122,7 @@ int read_usb_device(struct udev_device *sdev, struct usbip_usb_device *udev);
+ int read_attr_value(struct udev_device *dev, const char *name,
+ 		    const char *format);
+ int read_usb_interface(struct usbip_usb_device *udev, int i,
+-		       struct usbip_usb_interface *uinf);
++		       struct usbip_usb_interface *uinf, struct udev *udev_context);
+ 
+ const char *usbip_speed_string(int num);
+ const char *usbip_status_string(int32_t status);
+--- a/libsrc/usbip_host_driver.c
++++ b/libsrc/usbip_host_driver.c
+@@ -34,7 +34,7 @@
+ #define PROGNAME "libusbip"
+ 
+ struct usbip_host_driver *host_driver;
+-struct udev *udev_context;
++static struct udev *udev_context;
+ 
+ static int32_t read_attr_usbip_status(struct usbip_usb_device *udev)
+ {
+@@ -106,7 +106,7 @@ struct usbip_exported_device *usbip_exported_device_new(const char *sdevpath)
+ 	}
+ 
+ 	for (i = 0; i < edev->udev.bNumInterfaces; i++)
+-		read_usb_interface(&edev->udev, i, &edev->uinf[i]);
++		read_usb_interface(&edev->udev, i, &edev->uinf[i], udev_context);
+ 
+ 	return edev;
+ err:
+--- a/libsrc/vhci_driver.c
++++ b/libsrc/vhci_driver.c
+@@ -13,7 +13,7 @@
+ #define PROGNAME "libusbip"
+ 
+ struct usbip_vhci_driver *vhci_driver;
+-struct udev *udev_context;
++static struct udev *udev_context;
+ 
+ static struct usbip_imported_device *
+ imported_device_init(struct usbip_imported_device *idev, char *busid)

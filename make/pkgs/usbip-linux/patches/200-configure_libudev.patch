@@ -1,0 +1,17 @@
+--- configure.ac
++++ configure.ac
+@@ -44,11 +44,9 @@ AC_FUNC_REALLOC
+ AC_CHECK_FUNCS([memset mkdir regcomp socket strchr strerror strstr dnl
+ 		strtoul])
+ 
+-AC_CHECK_HEADER([libudev.h],
+-		[AC_CHECK_LIB([udev], [udev_new],
+-			      [LIBS="$LIBS -ludev"],
+-			      [AC_MSG_ERROR([Missing udev library!])])],
+-		[AC_MSG_ERROR([Missing /usr/include/libudev.h])])
++AC_CHECK_LIB([udev], [udev_new],
++             [LIBS="$LIBS -ludev"],
++             [AC_MSG_ERROR([Missing udev library!])])
+ 
+ # Checks for libwrap library.
+ AC_MSG_CHECKING([whether to use the libwrap (TCP wrappers) library])

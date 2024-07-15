@@ -328,6 +328,17 @@ config FREETZ_MODULE_usbip_common_mod
 	depends on FREETZ_MODULE_usbip
 	default n
 
+config FREETZ_MODULE_usbip_core
+	bool "usbip-core.ko"
+	depends on !FREETZ_AVM_HAS_USB_IP_HOST_BUILTIN
+	select FREETZ_MODULE_usbip_host
+	default y
+
+config FREETZ_MODULE_usbip_host
+	bool "usbip-host.ko"
+	depends on !FREETZ_AVM_HAS_USB_IP_COMMON_BUILTIN
+	default n
+
 config FREETZ_MODULE_usblp
 	bool "usblp.ko"
 	depends on !FREETZ_AVM_HAS_USB_PRINTER_BUILTIN

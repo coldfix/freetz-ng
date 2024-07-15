@@ -68,8 +68,14 @@ main() {
 			sr_mod)				koon  BLK_DEV_SR			BLK_DEV_SR_VENDOR=n ;;
 			usb_storage)			koon  USB_STORAGE			 ;;
 			usbcore)			koon  USB				 ;;
+
+			# old/standalone usbip package:
 			usbip)				koon  USBIP_CORE			 ;;
 			usbip_common_mod)		koon  USB_IP_COMMON			STAGING=y STAGING_EXCLUDE_BUILD=n ;;
+			# new/linux mainline usbip package:
+			usbip_core)			koon  USBIP_CORE			;;
+			usbip_host)			koon  USBIP_HOST			;;
+
 			usblp)				koon  USB_PRINTER			 ;;
 			usbmon)				koon  USB_MON				 ;;
 
