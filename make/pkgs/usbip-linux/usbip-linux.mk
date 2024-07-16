@@ -4,7 +4,7 @@ $(call PKG_INIT_BIN, 0.1)
 # $(PKG)_HASH:=$(call qstrip,$(FREETZ_DL_KERNEL_VANILLA_HASH))
 # $(PKG)_SITE:=@KERNEL/linux/kernel/v$(call qstrip,$(FREETZ_KERNEL_VANILLA_DLDIR))
 
-$(PKG)_LINUX_CATEGORY:=Unstable
+$(PKG)_CATEGORY := Unstable
 
 $(PKG)_BINARIES            := usbip usbipd # usbip_bind_driver
 $(PKG)_BINARIES_BUILD_DIR  := $($(PKG)_BINARIES:%=$($(PKG)_DIR)/src/%)
